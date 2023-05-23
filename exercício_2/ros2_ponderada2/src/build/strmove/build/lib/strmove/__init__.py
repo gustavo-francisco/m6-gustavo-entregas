@@ -111,6 +111,9 @@ class TurtleController(Node):
             self.get_logger().info(f"Tortugas chegou em {self.pose}, \
                                    andando para {self.setpoint}")
         except IndexError:
+            msg = Twist()
+            msg.linear.x, msg.angular.z = 0.0, 0.0
+            self.publisher.publish(msg)
             self.get_logger().info(f"Fim da jornada!")
             exit()
 
