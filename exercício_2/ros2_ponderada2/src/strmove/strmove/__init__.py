@@ -39,7 +39,7 @@ class Pose(TPose):
 
 
 class MissionControl(deque):
-    def __init__(self, csv_file="pontos.csv"):
+    def __init__(self, csv_file="/home/gustavo/files/pontos.csv"):
         super().__init__()
         with open(csv_file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=",")
