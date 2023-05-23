@@ -87,24 +87,27 @@ class TurtleController(Node):
         msg = Twist()
         x_diff = self.setpoint.x - self.pose.x
         y_diff = self.setpoint.y - self.pose.y
-        z_diff = self.setpoint.theta - self.pose.theta
         angle = atan2(y_diff, x_diff)
+        z_diff = angle - self.pose.theta
 
         if abs(x_diff) <= MAX_DIFF and abs(z_diff) <= MAX_DIFF:
             msg.linear.x, msg.angular.z = 0.0, 0.0
             self.update_setpoint()
         else:
-            if angle <= MAX_DIFF:
-                msg.linear.x = 0.5 if x_diff > 0 else -0.5
+            if abs(angle-self.pose.theta) <= MAX_DIFF:
+                msg.linear.x = 0.5 
             else:
-                msg.angular.z = 0.5 if z_diff > 0 else -0.5 
+                msg.angular.z = 0.3 if (z_diff) > 0 else -0.3
+                
         self.publisher.publish(msg)
 
 
 
     def update_setpoint(self):
         try:
-            self.setpoint = self.pose + self.mission_control.dequeue()
+            next_pose = self.mission_control.dequeue()
+            self.setpoint.x = next_pose.x
+            self.setpoint.y = next_pose.y
             self.get_logger().info(f"Tortugas chegou em {self.pose}, \
                                    andando para {self.setpoint}")
         except IndexError:
