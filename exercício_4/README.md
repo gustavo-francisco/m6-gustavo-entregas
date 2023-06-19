@@ -2,7 +2,7 @@
 
 ## 👉 Informações gerais
 
-O projeto "exercício_4" consiste em um aplicativo Flask que permite o envio de imagens para serem salvas em um diretório. O aplicativo possui uma rota `/envio` que recebe uma imagem, a captura usando a webcam e a salva no diretório `imagens`.
+O projeto consiste em um aplicativo Flask que permite o envio de imagens para serem salvas em um diretório. O aplicativo possui uma rota `/envio` que recebe uma imagem, a captura usando a webcam e a salva no diretório `imagens`.
 
 ## 🎯 Objetivos
 
